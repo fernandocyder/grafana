@@ -104,7 +104,7 @@ export class CloudWatchLanguageProvider extends LanguageProvider {
   }, 30 * 1000);
 
   isStatsQuery(query: string): boolean {
-    const grammar = Prism.languages['cloudwatch'];
+    const grammar = this.getSyntax();
     const tokens = Prism.tokenize(query, grammar) ?? [];
 
     return !!tokens.find(
@@ -307,7 +307,7 @@ export class CloudWatchLanguageProvider extends LanguageProvider {
     let thisToken = { ...startToken };
 
     while (thisToken.prev !== null) {
-      thisToken = thisToken.prev;
+      thisToken = thisToken.prev!;
       const isFirstCommand = thisToken.types.includes('query-command') && thisToken.prev === null;
       if (thisToken.types.includes('command-separator') || isFirstCommand) {
         // next token should be command

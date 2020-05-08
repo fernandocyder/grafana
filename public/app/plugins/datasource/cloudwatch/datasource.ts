@@ -234,7 +234,7 @@ export class CloudWatchDatasource extends DataSourceApi<CloudWatchQuery, CloudWa
       this.makeLogActionRequest(
         'StopQuery',
         [...this.logQueries.values()].map(logQuery => ({ queryId: logQuery.id, region: logQuery.region })),
-        null,
+        undefined,
         false
       ).pipe(finalize(() => this.logQueries.clear()));
     }
